@@ -37,8 +37,15 @@ note that there is a password in the stream 0 `(sup3rs3cur3)`
 3. In stream 3, there is a `.zip` file (indicated by the file signature 'PK', which is specific to a .zip file). To extract it from wireshark, click on the upper left corner File->Export Objects->FTP Data, select the backup.zip packet and click Save.
 
 ![export_zip](images/export_zip1.png)
+![export_zip2](images/export_zip2.png)
 
-Now we have a compressed .json file called secrets.json, and I am pretty sure that it contains the flag. However, it requires a password for decompression. Luckily, the password is `sup3rs3cur3`, the one we found in stream 0!.
+Now we have a compressed .json file called secrets.json, and I am pretty sure that it contains the flag. However, it requires a password for decompression.
+
+![zip_password](images/password_zip.png)
+
+Luckily, the password is `sup3rs3cur3`, the one we found in stream 0!.
+
+![flag](images/flag.png)
 
 We were able to view the information in plain text because it was not encrypted, highlighting the importance of using SSH instead of Telnet and SFTP instead of FTP. Encryption ensures the security and confidentiality of data during transmission.
 

@@ -14,7 +14,7 @@ Tags: _pwn, bby_
 
 ## Solution
 
-This is a C++ program where the users can "talk" about wine, cheese or flags and the system answer depending on the users' "connoisseur level": 1 is for low level, and 2 is for high level.
+This is a C++ program where the user can "talk" about wine, cheese or flags and the system answer depending on the user's "connoisseur level": 1 is for low level, and 2 is for high level.
 
 ```
 $ ./classy
