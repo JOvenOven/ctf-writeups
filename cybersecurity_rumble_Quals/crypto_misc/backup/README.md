@@ -30,7 +30,7 @@ this filter will only capture the three-way handshake, which is the begining of 
 
 ![Filter](images/three_way_handshake.png)
 
-note that there is a password in the stream 0 `(sup3rs3cur3)`
+By analyzing the data streams, we notice that it was a user that loged into a remote router via Telnet with the password `sup3rs3cur3`. After that, they activated the FTP protocol to retrieve a zip file called backup.zip to their local machine.
 
 ![stream_0](images/stream_0.png)
 
