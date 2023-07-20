@@ -9,7 +9,7 @@
 > [`funny-factorials.amt.rs`](https://funny-factorials.amt.rs/)
 >
 > Downloads:\
-> [`app.py`](app.py) > [`Dockerfile`](Dockerfile)
+> [`app.py`](app.py) [`Dockerfile`](Dockerfile)
 
 Tags: _web_
 
