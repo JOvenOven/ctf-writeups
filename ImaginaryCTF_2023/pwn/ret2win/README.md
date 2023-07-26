@@ -89,7 +89,7 @@ $ a
 
 ```
 
-It didn't retrieve the flag because internally the program got a `SIGSEGV` code or a `segmentation fault`. The reason why this happens is a stack alignment error. Stack alignment refers to the requirement that the stack pointer `SP` should be aligned to a multiple of 16 bytes, which is violated when inserting the `win()` function address directly. The easiest way to solve this problem is to add a `ret` gadget to the payload, effectively creating a [`ROP Chain`](https://www.ired.team/offensive-security/code-injection-process-injection/binary-exploitation/rop-chaining-return-oriented-programming). We can get its address with `ropper`.
+It didn't retrieve the flag because internally the program got a `SIGSEGV` code or a `segmentation fault`. The reason why this happens is a stack alignment error. Stack alignment refers to the requirement that the stack pointer `SP` should be aligned to a multiple of 16 bytes, which is violated when inserting the `win()` function address directly. The easiest way to solve this problem is to add a `ret` gadget to the payload, effectively creating a `ROP Chain` you can learn more about it [here](https://www.ired.team/offensive-security/code-injection-process-injection/binary-exploitation/rop-chaining-return-oriented-programming). I will use `ropper` to get the gadget address.
 
 ```c
 $ ropper --file vuln
