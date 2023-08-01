@@ -12,7 +12,7 @@ Tags: _web|warmup_
 
 ## Solution
 
-This challenge comes with the vulnerable binary only, the first thing to do is check the binary's security posture using `chekcsec` to give us an idea of what could be the way in vector.
+This challenge comes with the vulnerable binary only, the first thing to do is check the binary's security posture using `checksec` to give us an idea of what could be the way in vector.
 
 ```shell
 $ checksec diary
@@ -153,7 +153,7 @@ pwndbg> cyclic 300
 aaaaaaaabaaaaaaacaaaaaaadaaaaaaaeaaaaaaafaaaaaaagaaaaaaahaaaaaaaiaaaaaaajaaaaaaakaaaaaaalaaaaaaamaaaaaaanaaaaaaaoaaaaaaapaaaaaaaqaaaaaaaraaaaaaasaaaaaaataaaaaaauaaaaaaavaaaaaaawaaaaaaaxaaaaaaayaaaaaaazaaaaaabbaaaaaabcaaaaaabdaaaaaabeaaaaaabfaaaaaabgaaaaaabhaaaaaabiaaaaaabjaaaaaabkaaaaaablaaaaaabmaaa
 ```
 
-run the binary, it shoud crash trying to go to the specific memory address in `ret` (return address) `0x6261616161616169`. Use `cyclic` again to get the exact offset where we will start overwriting the return address.
+run the binary, it should crash trying to go to the specific memory address in `ret` (return address) `0x6261616161616169`. Use `cyclic` again to get the exact offset where we will start overwriting the return address.
 
 ```
 pwndbg> cyclic -l 0x6261616161616169
@@ -238,6 +238,6 @@ $ exit
 [*] Got EOF while reading in interactive
 ```
 
-I also recommend watching [this](https://www.youtube.com/watch?v=wa3sMSdLyHw&list=PLHUKi1UlEgOIc07Rfk2Jgb5fZbxDPec94&pp=iAQB) series of videos if you are new to pwn challenges, I think he explains really well and also provides more resources to better understand the theory, watch the fifth video [Injecting shellcode](https://youtu.be/4zut2Mjgh5M?list=PLHUKi1UlEgOIc07Rfk2Jgb5fZbxDPec94) of the series since he explains further how to solve these specific kind of challenges.
+I also recommend watching [this](https://www.youtube.com/watch?v=wa3sMSdLyHw&list=PLHUKi1UlEgOIc07Rfk2Jgb5fZbxDPec94&pp=iAQB) series of videos if you are new to pwn challenges, I think he explains really well and also provides more resources to better understand the theory, watch the fifth video ["Injecting shellcode"](https://youtu.be/4zut2Mjgh5M?list=PLHUKi1UlEgOIc07Rfk2Jgb5fZbxDPec94) of the series since he explains further how to solve these specific kind of challenges.
 
 Flag `TFCCTF{94fa3e5538d57f71937a85076e96fbc5c00f8fddbbcbb8b4b6db1df9e599d1d6}`
