@@ -96,6 +96,7 @@ After finding the offset, we can write the payload manually but the formula to d
 Instead I used the `pwntools` module `FmtStr()` to automate the calculation and exploitation. Remember that everything else outside the exploit section is a template where you should change just a few things like the `REMOTE` parameters with the connection values of your container.
 
 ```python
+#!/usr/bin/python3
 from pwn import *
 
 # Set up the target binary by specifying the ELF file

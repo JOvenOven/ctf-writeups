@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 from pwn import *
 
 # Set up the target binary by specifying the ELF file
