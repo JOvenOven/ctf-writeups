@@ -1,0 +1,22 @@
+tree e9989c10b2da74056da47b7c7807a2504437d83b
+parent 7b0590e3c6712d02db8c82b31613c9e19764cae2
+author Anand Rajaram <anandrajaram21@gmail.com> 1653737737 +0530
+committer Anand Rajaram <anandrajaram21@gmail.com> 1653737737 +0530
+gpgsig -----BEGIN PGP SIGNATURE-----
+ 
+ iQIzBAABCAAdFiEEc97Mdc9TfRC1Lq8pxPi4xzA+tToFAmKSCQkACgkQxPi4xzA+
+ tTrgiA/+Nj/LvN2raqFlLDNjnYINRwzLlxazU6vYttojGABThD1bwAF/9DAdZJBc
+ HS7hCQD6ppl6CDbHOaw9unMnX6kPWG8qpsn2Zk5wI9kzskEkvdoMucRg1MEEOrRE
+ AUo/o33I0lZR5pseXcflpzRighki21JN5JD/MnQJ45QH7u08xrOheF95eA7+czk7
+ gCVtXRUcPH8Vo5kDibVt0tMUcCU++SUDGPIAozq4KRZQMjvEwHeO0Qm6K9fpGJpP
+ 3mo4SoPIz54Xdi5wgEE9coLRowZjwLlxaQTlXHqkUIoDVRoh/8I8KstbL3Dqkc8u
+ 0hzYTO159zDLZQEae2UbqIg9k0BKKSGm5Y4cMK71+rD3/gLEg+vwbR5oQf3qkLBX
+ OrHBni9WxmNTE0L0VbTe31SPQdg0pmmDtbuDkZn9z1zvNwSreTExqrE+BxB+Rr2L
+ Oc9ddW7HaEEee1FFerCS62D1hALi9XGiHGC142tDRnpETjSBZO6kzu9i/lYc6S5M
+ kEe2gpnL789bHOMOda1D6Kmg0zJtoiW/TFfz/yWJ/V99q171Zdl7lT2OczYUVngP
+ LxnzbFwWOn7Hq7+wvnCWCqFyJhF8rGA6ARBKvCrj1o8whIZXQAb7Ib+pqqDBZZsP
+ 7uADBperDG2HmESL+a7me8zz+do5n5iJeawdNCnpxbpQ+aZ64Lg=
+ =sYNl
+ -----END PGP SIGNATURE-----
+
+Final changes made to note manager

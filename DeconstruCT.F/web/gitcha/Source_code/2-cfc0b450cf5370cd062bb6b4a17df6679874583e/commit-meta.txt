@@ -1,0 +1,22 @@
+tree ab60bf1132c9677061b0c94e8031c53d2e05e629
+parent f2a5e877c128b4e436843c84ebb319a450ceb6b1
+author Anand Rajaram <anandrajaram21@gmail.com> 1653562664 +0530
+committer Anand Rajaram <anandrajaram21@gmail.com> 1653562664 +0530
+gpgsig -----BEGIN PGP SIGNATURE-----
+ 
+ iQIzBAABCAAdFiEEc97Mdc9TfRC1Lq8pxPi4xzA+tToFAmKPXUUACgkQxPi4xzA+
+ tToKuRAAyL7Csx/QRb2HHFYw73+Tjhrs9bb6/mn0toBleUMgvEQFq50iCFi2ZfXb
+ ZVvI+oYHkiMApPHOTUINB6L5IlFV/alvhJ7ilQ7FZ1dTbCMfgBOwpcbEP4ai+MOa
+ UJ5G3CZ9ASdT0DLf83CVlH0EwPFqfCgzZzLSYkXaB6FdQ/6RkeKMrQJryuccYCzT
+ mxvuecPkP+vYlQgrkuGmdN1t9GnGuCOH3pRkJLicDjMPzHI8Lt9r6gCeYexpjsOU
+ KhXGldeackrPiLNcGC7XDuWiueviusEcZzxAN2dGwew2piHNTfEmDp8ThuyeOS45
+ tyhyud7mar3zzCai3M1kr2kqQVUxGtS5GyXg3euwVuUT8umirSjj1p7A8jpFkfMp
+ Ovttogo44RFGeib+JN6VNRv1sjUo/dDKf+bVpOB/Qrkt75U4s41MY5OMI2N6NEW1
+ nTl1K/I5HLBQJr0KY1gbI74JemRNFDPHFRC4t2jTgWXV7gMGOPOooH53qm5/HZfa
+ 7z0vLvmAEKDOVQElAEow39eId3KgdzgoEFzU89K3u1cpvXG/DVKAPKWYoyEvj/EL
+ EyTtyN1QutuYHJRHzgGoTKQ8KupUNO28JZeMBUGjBSeJJy5+xluHSPVzVCSkhz1B
+ Wuem0rXkKnbjsMUMy98Ub/xLRHLIzCVuODchJFCoX30G7otouCc=
+ =/ceM
+ -----END PGP SIGNATURE-----
+
+Removed contact form from index.html

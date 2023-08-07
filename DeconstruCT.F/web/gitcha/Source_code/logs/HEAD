@@ -1,0 +1,8 @@
+0000000000000000000000000000000000000000 f2a5e877c128b4e436843c84ebb319a450ceb6b1 Anand Rajaram <anandrajaram21@gmail.com> 1653533057 +0530	commit (initial): Initialize new website
+f2a5e877c128b4e436843c84ebb319a450ceb6b1 cfc0b450cf5370cd062bb6b4a17df6679874583e Anand Rajaram <anandrajaram21@gmail.com> 1653562664 +0530	commit: Removed contact form from index.html
+cfc0b450cf5370cd062bb6b4a17df6679874583e 55f634cc0fea9b34ee2c4278bc22e771f84b9d41 Anand Rajaram <anandrajaram21@gmail.com> 1653668529 +0530	commit: Added Dockerfile
+55f634cc0fea9b34ee2c4278bc22e771f84b9d41 7b0590e3c6712d02db8c82b31613c9e19764cae2 Anand Rajaram <anandrajaram21@gmail.com> 1653672950 +0530	commit: Added prisma code
+7b0590e3c6712d02db8c82b31613c9e19764cae2 dcfb8e6db1b5d4bc80ab7af385fd6a80a7ce9561 Anand Rajaram <anandrajaram21@gmail.com> 1653737737 +0530	commit: Final changes made to note manager
+dcfb8e6db1b5d4bc80ab7af385fd6a80a7ce9561 c00b481161e9f2e9489b5d15c484be60ab7e6d6b Anand Rajaram <anandrajaram21@gmail.com> 1653749384 +0530	commit: Add test flag
+c00b481161e9f2e9489b5d15c484be60ab7e6d6b c6501af048876c4c7820927df54cc02b9b542a19 Anand Rajaram <anandrajaram21@gmail.com> 1653749421 +0530	commit: Remove printFlag
+c6501af048876c4c7820927df54cc02b9b542a19 bfc1e6775569866f6b8fb8e05e6d9b499af89613 Anand Rajaram <anandrajaram21@gmail.com> 1653749479 +0530	commit: WHY DID I COMMIT .ENV???
