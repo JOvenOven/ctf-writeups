@@ -8,7 +8,6 @@ List of all CTF events I have joined before in [`ctftime.org`](https://ctftime.o
 
 | Event Name                                | Writeup Link                              |
 | ----------------------------------------- | ----------------------------------------- |
-| University CTF 2023: Brains & Bytes           | [Link](/University_CTF_2023_Brains_&_Bytes/)                              |
 | DeconstruCT.F                             | [Link](/DeconstruCT.F/)                   |
 | TFC CTF 2023                              | [Link](/TFC_CTF_2023/)                    |
 | ImaginaryCTF 2023                         | [Link](/ImaginaryCTF_2023/)               |
