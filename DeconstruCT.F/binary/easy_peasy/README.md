@@ -6,6 +6,8 @@
 > Find this crucial piece of information
 >
 > Author: Anand Rajaram
+>
+> [`ezpz`](./ezpz)
 
 Tags: _binary_ \
 Difficulty: _easy_ \
