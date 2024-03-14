@@ -8,6 +8,7 @@ List of all CTF events I have joined before in [`ctftime.org`](https://ctftime.o
 
 | Event Name                                | Writeup Link                              |
 | ----------------------------------------- | ----------------------------------------- |
+| Cyber Apocalypse 2024: Hacker Royale           | [Link](/Cyber_Apocalypse_2024_Hacker_Royale/)                              |
 | DeconstruCT.F                             | [Link](/DeconstruCT.F/)                   |
 | TFC CTF 2023                              | [Link](/TFC_CTF_2023/)                    |
 | ImaginaryCTF 2023                         | [Link](/ImaginaryCTF_2023/)               |
