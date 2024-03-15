@@ -61,7 +61,7 @@ malloc(128, 6, b"A")
 malloc(128, 7, b"A")
 malloc(128, 8, b"A") # Guard against consolidation with the top chunk
 
-# Fill the tcache bin of size 0x90 to ensure the next 0x90 chunk allocation 
+# Fill the tcache bin of size 0x90 to ensure the next 0x90 freed chunk 
 # goes into the unsortedbin.
 free(0) # 0x90 tcache 1
 free(1) # 0x90 tcache 2

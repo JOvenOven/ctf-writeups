@@ -44,17 +44,17 @@ $ ./deathnote
 💀  
 ```
 
-The menu strongly suggests that it's a heap challenge, as it includes familiar options such as ``create,`` ``remove,`` and ``show.`` The ``create`` option allows us to allocate a chunk in the heap of up to size 0x90. ``Remove`` simply frees a specified chunk, while ``show`` prints the contents of a chunk. This information was gathered by debugging with ``GDB``. Additionally, there's another option whose functionality is unclear from its name, ``¿?¿?¿?¿?¿?¿?``. However, when executed, the program simply crashes with a segmentation fault.
+The menu strongly suggests that it's a heap related challenge, as it includes familiar options such as ``create,`` ``remove,`` and ``show.`` The ``create`` option allows us to allocate a chunk in the heap of up to size 0x90. ``Remove`` simply frees a specified chunk, while ``show`` prints the contents of a chunk. This information was gathered by debugging with ``GDB``. Additionally, there's another option whose functionality is unclear from its name, ``¿?¿?¿?¿?¿?¿?``. However, when executed, the program simply crashes with a segmentation fault.
 
 ## Finding the bug
 
 The ``show`` option exhibits a ``read-after-free`` bug, allowing us to leak addresses from malloc metadata of freed chunks.
 
-During debugging, I observed that selecting option 42, ``¿?¿?¿?¿?¿?¿?``, triggers the program to execute the memory region pointed to by the address of the chunk labeled with ``page 0,`` passing the ``page 1`` chunk as a parameter. Although I'm uncertain about this behavior, my exploit still succeeded, assuming it to be true.
+During debugging, I observed that selecting option 42, ``¿?¿?¿?¿?¿?¿?``, triggers the program to execute the memory region pointed to by the address written in the chunk labeled with ``page 0,`` passing the ``page 1`` chunk as a parameter. Although I'm uncertain about this behavior, my exploit still succeeded, assuming it to be true.
 
 ## Exploitation phase
 
-Since there aren't any useful functions to execute within the ``ELF`` file, our objective is to somehow leak the ``libc`` address. In heap challenges, it's common to achieve this by reading metadata from an ``unsortedbin`` chunk,  and it is possible with the ``read-after-free`` bug we have at hand, we only need to create an `unsortedbin` chunk and read its data with the `show` function to leak the unsortedbin address in libc and calculate the libc base address with it. Finally, we can use the arbitrary code execution bug to call ``system(/bin/sh)`` and spawn a shell.
+Since there aren't any useful functions to execute within the ``ELF`` file, our objective is to somehow leak the ``libc`` address. In heap challenges, it's common to achieve this by reading metadata from an ``unsortedbin`` chunk,  and it is possible with the ``read-after-free`` bug we have at hand, we only need to create an `unsortedbin` chunk and read its metadata with the `show` function to leak the unsortedbin address in libc and calculate the libc base address with it. Finally, we can use the arbitrary code execution bug to call ``system(/bin/sh)`` and spawn a shell.
 
 This summarizes the approach outlined in the following exploit script.
 
@@ -122,7 +122,7 @@ malloc(128, 6, b"A")
 malloc(128, 7, b"A")
 malloc(128, 8, b"A") # Guard against consolidation with the top chunk
 
-# Fill the tcache bin of size 0x90 to ensure the next 0x90 chunk allocation 
+# Fill the tcache bin of size 0x90 to ensure the next 0x90 freed chunk
 # goes into the unsortedbin.
 free(0) # 0x90 tcache 1
 free(1) # 0x90 tcache 2

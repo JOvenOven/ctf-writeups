@@ -31,6 +31,7 @@ $ checksec delulu
 ```
 Decompiling the binary with `Ghidra`:
 ```c
+/* decompilation from Ghidra */
 undefined8 main(void)
 
 {
@@ -68,6 +69,7 @@ undefined8 main(void)
 ```
 
 ```c
+/* decompilation from Ghidra */
 void delulu(void)
 
 {
@@ -98,7 +100,7 @@ void delulu(void)
   return;
 }
 ```
-In summary, we aim to execute the `delulu()` function, which prints the flag. This function is executed when the variable `local_48` equals `0x1337beef`
+In summary, ``main()`` function ask for an user input which is then printed back after the string `[!] Checking..`. We aim to execute the `delulu()` function, which prints the flag. This function is executed when the variable `local_48` equals `0x1337beef`, but that variable is never directly changed by the user.
 
 
 
@@ -142,14 +144,14 @@ Try to deceive it by changing your ID.
 [-] ALERT ALERT ALERT ALERT
 
 ```
-The program does not display our input but instead prints stack pointers. This behavior indicates that the program is vulnerable to String Format Vulnerability, a fact corroborated by the code itself. The user input is directly passed to the printf() function without a corresponding format specifier, which poses a security risk. It should have been written as follows:
+The program does not display our input but instead prints stack pointers. This behavior indicates that the program is vulnerable to ``String Format Vulnerability``, a fact corroborated by the code itself. The user input is directly passed to the ``printf()`` function without a corresponding format specifier, which poses a security risk. That specific line of code should have been written as follows:
 ```c
 printf("%s", (char *)&local_38);
 ```
 
 ## Exploitation phase
 
-To trigger the execution of the ``delulu()`` function, we must modify the value of ``local_48`` from ``0x1337babe`` to ``0x1337beef``. Exploiting the String Format Vulnerability allows us to overwrite memory values, including those referenced by variables on the stack. By identifying the offset in the stack of the ``local_40`` variable, which holds the address of our target ``local_48``, we can achieve this. The offset was determined using this fuzzing script:
+To trigger the execution of the ``delulu()`` function, we must modify the value of ``local_48`` from ``0x1337babe`` to ``0x1337beef``. Exploiting the String Format Vulnerability allows us to overwrite memory values, including those referenced by variables on the stack. By identifying the offset in the stack of the ``local_40`` variable, which holds the address of our target ``local_48``, we can achieve that goal. The offset was determined using this fuzzing script:
 
 ```py
 from pwn import *
@@ -186,10 +188,10 @@ $ python fuzz.py
 ...
 ```
 
-The value ``0x1337babe`` is located at the 7th offset (displayed in little-endian byte format). With this information, we are now prepared to craft our final exploit:
+The value ``0x1337babe`` is located at the 7th offset (displayed in little-endian byte format). With this information, we are now prepared to craft our final exploit which is as follows:
 ```
 A%48878x%7$hn
 ```
-The format specifier ``%7$hn`` in the printf function instructs it to overwrite the least significant 2 bytes of the value pointed to by the pointer at offset 7. In this context, the value written is ``0xbeef``, which corresponds to the length of the output produced by the first part of our exploit ``A%48878x``. This initial part prints the argument 'A' padded with at least 48878 characters, effectively changing the value of ``local_48`` form ``0x1337babe`` to ``0x1337beef``.
+The format specifier ``%7$hn`` in the printf function instructs ``printf()`` to overwrite the least significant 2 bytes of the value pointed to by the pointer at offset 7 (our target string ``0x1337babe``). In this context, the value written is ``0xbeef``, which corresponds to the length of the output produced by the first part of our exploit ``A%48878x``. This initial part prints the argument 'A' padded with at least 48878 characters, effectively changing the value of ``local_48`` form ``0x1337babe`` to ``0x1337beef``.
 
 Flag `HTB{m45t3r_0f_d3c3pt10n}`

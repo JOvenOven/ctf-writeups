@@ -91,11 +91,11 @@ void open_door(void)
 }
 ```
 
-In summary, the `open_door()` function prints the flag, and it will execute if the variables `local_1e` and `local_18` are equal, with `local_18` being set to `w3tpass` and `local_1e` being provided by the user.
+In summary, the `open_door()` function prints the flag, and it will be executed if the variables `local_1e` and `local_18` are equal, with `local_18` being set to `w3tpass` and `local_1e` being provided by the user.
 
 ## Finding the bug
 
-The password is `w3tpass`. However, the program rejects it because the `read()` function doesn't null-terminate the user input in `local_1e`. Consequently, when `strcmp()` is called, it not only reads our input but also the next variables in the stack until reaching a null byte, and compares it with the password. Additionally, the `read()` function has a one-byte buffer overflow bug because `local_1e` is 6 bytes long, but the `read()` function receives 7 bytes. As a result, the 7th byte overlaps with just the first byte of the variable `local_18`, which is the actual password. You can corroborate it by debugging in `gdb` and reading the stack layout that `Ghidra` provides
+The password is `w3tpass`. However, the program rejects it because the `read()` function doesn't null-terminate the user input in `local_1e`. Consequently, when `strcmp()` is called, it not only reads our input but also the next variables in the stack until reaching a null byte, and compares it with the password. Additionally, the `read()` function has a one-byte buffer overflow bug because `local_1e` is 6 bytes long, but the `read()` function receives 7 bytes. As a result, the 7th byte overlaps with just the first byte of the variable `local_18`, which is the actual password. You can corroborate it by debugging in `gdb` and/or reading the stack layout that `Ghidra` provides:
 ```
 ******************************************
 *                FUNCTION                *
