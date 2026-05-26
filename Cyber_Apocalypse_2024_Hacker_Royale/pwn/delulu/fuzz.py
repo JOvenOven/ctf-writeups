@@ -15,7 +15,7 @@ for i in range(1,100):
         # Receive the response
         p.recvuntil(b'.. ')
         result = p.recvuntil(b'\n')
-        print(str(i) + ': ' + str(result))
+        print(str(i) + ': ' + result[:-1].decode())
         # Exit the process
         p.close()
     except EOFError:
